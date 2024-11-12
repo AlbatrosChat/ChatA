@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albatros Chat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Albatros Chat</h1>
+        <button id="login-btn">Sign in with Email</button>
+    </header>
+    <main>
+        <aside id="rooms-list">
+            <h2>Chat Rooms</h2>
+            <ul id="rooms">
+                <!-- Chat rooms will be listed here -->
+            </ul>
+            <button id="create-room-btn">Create Room</button>
+        </aside>
+        <section id="chat-room">
+            <div id="chat-messages">
+                <!-- Chat messages will appear here -->
+            </div>
+            <input type="text" id="message-input" placeholder="Type your message...">
+            <button id="send-message-btn">Send</button>
+        </section>
+        <aside id="user-profile">
+            <h2>My Profile</h2>
+            <div id="profile-details">
+                <!-- Profile details will appear here -->
+            </div>
+            <button id="logout-btn">Logout</button>
+        </aside>
+    </main>
+    <script src="firebase_config.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+<!-- إضافة إلى index.html -->
+<div id="message-area">
+    <input type="text" id="message-input" placeholder="Type your message...">
+    <button id="send-message-btn">Send</button>
+    <button id="record-audio-btn">Record Audio</button>
+</div>
+<!-- إضافة إلى index.html في قسم الملف الشخصي -->
+<div id="profile-stats">
+    <h3>My Levels</h3>
+    <p>Activity Level: <span id="activity-level">0</span>/100</p>
+    <p>Wealth Level: <span id="wealth-level">0</span>/100</p>
+    <p>Attraction Level: <span id="attraction-level">0</span>/100</p>
+</div>
+// إضافة إلى app.js
+function updateProfileStats() {
+    database.ref('users/' + auth.currentUser.uid).once('value').then(snapshot => {
+        const user = snapshot.val();
+        document.getElementById('activity-level').textContent = user.activityLevel || 0;
+        document.getElementById('wealth-level').textContent = user.wealthLevel || 0;
+        document.getElementById('attraction-level').textContent = user.attractionLevel || 0;
+    });
+}
+
+auth.onAuthStateChanged(user => {
+    if (user) {
+        updateProfileStats();
+    }
+});
+<!-- إضافة إلى index.html -->
+<button id="change-lang-btn">Change Language</button>
+<!-- إضافة إلى index.html -->
+<section id="gift-section">
+    <h2>Send a Gift</h2>
+    <select id="gift-select">
+        <!-- قائمة الهدايا -->
+    </select>
+    <button id="send-gift-btn">Send Gift</button>
+</section>
+<!-- إضافة إلى index.html -->
+<div id="vip-section">
+    <h2>VIP Levels</h2>
+    <ul id="vip-list">
+        <!-- قائمة مستويات VIP -->
+    </ul>
+</div>
+<div id="store-section">
+    <h2>Store</h2>
+    <ul id="store-items">
+        <!-- قائمة العناصر في المتجر -->
+    </ul>
+</div>
+<!-- إضافة إلى index.html -->
+<section id="admin-section">
+    <h2>Admin Control Panel</h2>
+    <button id="edit-profile-btn">Edit Profile</button>
+    <button id="manage-users-btn">Manage Users</button>
+    <button id="view-reports-btn">View Reports</button>
+</section>
+<!-- إضافة إلى index.html -->
+<section id="voice-room-settings">
+    <h2>Voice Room Settings</h2>
+    <div>
+        <label for="room-password">Room Password: </label>
+        <input type="password" id="room-password">
+    </div>
+    <div>
+        <label for="room-background">Background Image URL: </label>
+        <input type="text" id="room-background">
+    </div>
+    <div>
+        <label for="mic-count">Number of Mics: </label>
+        <input type="number" id="mic-count" min="1" max="10">
+    </div>
+    <button id="update-room-settings-btn">Update Settings</button>
+</section>
+<section id="emoji-section">
+    <h2>Emoji Reactions</h2>
+    <button class="emoji-btn">😊</button>
+    <button class="emoji-btn">😂</button>
+    <button class="emoji-btn">😎</button>
+</section>
+<!-- إضافة إلى index.html -->
+<section id="admin-section">
+    <h2>Admin Control Panel</h2>
+    <button id="manage-users-btn">Manage Users</button>
+    <button id="manage-rooms-btn">Manage Rooms</button>
+    <button id="view-reports-btn">View Reports</button>
+</section>
+<!-- إضافة إلى index.html -->
+<section id="wallet-section">
+    <h2>Wallet</h2>
+    <p>Current Balance: <span id="wallet-balance">0</span> Coins</p>
+    <div>
+        <label for="top-up-amount">Top-up Amount (USD): </label>
+        <input type="number" id="top-up-amount" min="1">
+        <button id="top-up-btn">Top Up</button>
+    </div>
+</section>
+<!-- تحسين رأس الصفحة في index.html -->
+<header>
+    <img src="images/logo.png" alt="Albatros Chat Logo" class="logo">
+    <nav>
+        <button id="login-btn">Sign in with Email</button>
+        <button id="settings-btn">Settings</button>
+    </nav>
+</header>
+<!-- تحسين قائمة الغرف في index.html -->
+<aside id="rooms-list">
+    <h2>Chat Rooms</h2>
+    <ul id="rooms">
+        <!-- Chat rooms will be listed here -->
+    </ul>
+    <button id="create-room-btn">Create Room</button>
+</aside>
+<!-- تحسين منطقة الرسائل في index.html -->
+<section id="chat-room">
+    <div id="chat-messages">
+        <!-- Chat messages will appear here -->
+    </div>
+    <div id="message-area">
+        <input type="text" id="message-input" placeholder="Type your message...">
+        <button id="send-message-btn">Send</button>
+    </div>
+</section>
+<!-- إضافة FontAwesome إلى index.html -->
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<!-- إضافة أيقونات إلى رأس الصفحة في index.html -->
+<nav>
+    <button id="login-btn"><i class="fas fa-sign-in-alt"></i> Sign in with Email</button>
+    <button id="settings-btn"><i class="fas fa-cog"></i> Settings</button>
+</nav>
+https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js
